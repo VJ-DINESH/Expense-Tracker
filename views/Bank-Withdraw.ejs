@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8" />
+    <title>Expense-Tracker Bank-Withdraw </title>
+    <link rel="icon" href="http://localhost:3000/theme/vendors/images/123.png">
+    <%- include('header') %>
+    <%- include('sidebar') %>
+
+
+
+
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="title">
+                                <h4  style="font-family: Style Script, cursive; font-weight: normal;">Bank-Withdraw Form</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 text-right">
+                            <a class="btn btn-primary" href="/Bank-Withdraw-view">Back</a>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="pd-20 card-box mb-30">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <!-- Left content goes here -->
+                            </div>
+                            <div class="pull-right">
+                                <!-- Right content goes here -->
+                            </div>
+                        </div>
+                        <form action="/Bank-Withdraw" Method="POST">
+
+
+                           
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-12 col-md-2 col-form-label">Date</label>
+                                <div class="col-sm-12 col-md-10">
+                                    <input class="form-control w-100% " value="" type="date" name="date" required/>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-12 col-md-2 col-form-label">Amount</label>
+                                <div class="col-sm-12 col-md-10">
+                                    <input class="form-control w-100% " value="" type="number" name="amount" required/>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="description" class="col-sm-12 col-md-2 col-form-label">Description</label>
+                                <div class="col-sm-12 col-md-10">
+                                    <textarea class="form-control h-120px" id="description" name="description" rows="1"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end">
+                                <!-- <a href="" class="btn btn-primary btn-sm scroll-click" rel="content-y" data-toggle="collapse" role="button"><i class="fa fa-code"></i> Source Code</a>
+                                 -->
+
+                                <button class="btn btn-primary btn-sm w-25">Submit</button> </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('footer') %>
+
+            </html>

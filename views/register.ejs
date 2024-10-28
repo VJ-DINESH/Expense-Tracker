@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8" />
+    <title>Expense Tracker Register</title>
+    <link rel="icon" href="http://localhost:3000/theme/vendors/images/123.png">
+
+    <!-- Site favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png" />
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="theme/vendors/styles/core.css" />
+    <link rel="stylesheet" type="text/css" href="theme/vendors/styles/icon-font.min.css" />
+    <link rel="stylesheet" type="text/css" href="src/plugins/jquery-steps/jquery.steps.css" />
+    <link rel="stylesheet" type="text/css" href="theme/vendors/styles/style.css" />
+</head>
+
+<body class="login-page">
+    <div class="login-header box-shadow">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="brand-logo">
+                <a href="login">
+                    <img src="theme/vendors/images/l11-removebg-preview.png" alt="" />
+                </a>
+            </div>
+            <div class="login-menu">
+                <ul>
+                    <li><a href="login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="register-page-wrap d-flex align-items-center flex-wrap justify-content-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 col-lg-7">
+                    <img src="theme/vendors/images/register-page-img.png" alt="" />
+                </div>
+                <div class="col-md-6 col-lg-5">
+                    <div class="login-box bg-white box-shadow border-radius-10">
+                        <div class="login-title">
+                            <h2 class="text-center text-primary">Register</h2>
+                        </div>
+
+                        <form id="registrationForm" action="/register" method="POST" onsubmit="return validateForm()">
+                            <div class="container mt-5">
+                                <div class="input-group custom">
+                                    <input type="text" name="username" id="username" class="form-control form-control-lg" placeholder="Username" required>
+                                    <div class="input-group-append custom">
+                                        <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+                                    </div>
+                                </div>
+                                <span id="usernameStatus" style="color: red; "></span> 
+
+                                <div class="input-group custom">
+                                    <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Email" required>
+                                    <div class="input-group-append custom">
+                                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                    </div>
+                                </div>
+                                <p id="emailStatus" style="color: red;"></p> 
+
+                                <div class="input-group custom">
+                                    <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Password" required>
+<div class="input-group-append custom">
+    <span class="input-group-text" onclick="togglePasswordVisibility('password')"><i class="dw dw-eye"></i></span>
+    <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+</div>
+
+                                </div>
+                                <p id="passwordStatus" style="color: red;"></p> 
+
+                                <div class="input-group custom">
+                                    <input type="password" name="confirm_password" id="confirmPassword" class="form-control form-control-lg" placeholder="Confirm Password" required>
+                                    <div class="input-group-append custom">
+                                        <span class="input-group-text" onclick="togglePasswordVisibility('confirmPassword')"><i class="dw dw-eye"></i></span>
+                                    
+                                    <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+                                </div>
+                                </div>
+                                <p id="confirmPasswordStatus" style="color: red;"></p>
+
+                                <button type="submit" id="submit_btn" class="btn btn-primary btn-lg btn-block">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="theme/vendors/scripts/core.js "></script>
+    <script src="theme/vendors/scripts/script.min.js "></script>
+    <script src="theme/vendors/scripts/process.js "></script>
+    <script src="theme/vendors/scripts/layout-settings.js "></script>
+    <script src="src/plugins/jquery-steps/jquery.steps.js "></script>
+    <script src="theme/vendors/scripts/steps-setting.js "></script>
+    
+        <script>
+    function togglePasswordVisibility(inputId) {
+        var x = document.getElementById(inputId);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+
+    
+    <script>
+        $(document).ready(function () {
+            // Check email format and availability
+            $('#email').change(function () {
+                var email = $('#email').val();
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regular expression for basic email format
+    
+                if (!emailRegex.test(email)) { // Check if email format is valid
+                    $('#emailStatus').text('Please enter a valid email address');
+                    $("#submit_btn").prop("disabled", true);
+                    return; // Exit the function early if email format is invalid
+                }
+    
+                $.ajax({
+                    url: '/check-email',
+                    method: 'GET',
+                    data: {
+                        email: email
+                    },
+                    success: function (response) {
+                        if (response.registered) {
+                            $("#submit_btn").prop("disabled", true);
+                            $('#emailStatus').text('Email is already registered');
+                        } else {
+                            $("#submit_btn").prop("disabled", false);
+                            $('#emailStatus').text('');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error checking email:', error);
+                    }
+                });
+            });
+    
+            // Check username availability
+          $('#username').change(function () {
+                var username = $('#username').val();
+      
+                $.ajax({
+                    url: '/check-username',
+                    method: 'GET',
+                    data: {
+                        username: username
+                    },
+                    success: function (response) {
+                        if (response.taken) { // Check if username is taken
+                            $("#submit_btn").prop("disabled", true);
+                            $('#usernameStatus').text('Username is already taken');
+                        } else {
+                            $("#submit_btn").prop("disabled", false);
+                            $('#usernameStatus').text('');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error checking username:', error);
+                        $('#usernameStatus').text('Error checking username');
+                    }
+                });
+            });
+        });
+    $('#password, #confirmPassword').on('input', function() {
+    var password = $('#password').val();
+    var confirmPassword = $('#confirmPassword').val();
+
+    // Check if password meets requirements
+    var passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&])[a-zA-Z0-9!@#$%^&]{6,}$/;
+    if (!passwordRegex.test(password)) {
+        $('#passwordStatus').text('Password must be at least 6 characters long and contain at least one symbol and one number');
+        $("#submit_btn").prop("disabled", true);
+        return;
+    }
+
+    // Check if password and confirm password match
+    if (password !== confirmPassword) {
+        $('#confirmPasswordStatus').text('Passwords do not match');
+        $("#submit_btn").prop("disabled", true);
+        return;
+    }
+
+    // Clear status messages if everything is correct
+    $('#passwordStatus, #confirmPasswordStatus').text('');
+    $("#submit_btn").prop("disabled", false);
+});
+
+
+    </script>
+    
+    
+  
+</body>
+
+</html>

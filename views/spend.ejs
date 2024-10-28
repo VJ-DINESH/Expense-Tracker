@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8" />
+    <title>Expense-Tracker Spend </title>
+    <link rel="icon" href="http://localhost:3000/theme/vendors/images/123.png">
+    
+    <%- include('header') %>
+    <%- include('sidebar') %>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="title">
+                                <h4  style="font-family: Style Script, cursive; font-weight: normal;">Spend Form</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 text-right">
+                            <a class="btn btn-primary" href="/spend-view">Back</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="pd-20 card-box mb-30">
+                    <div class="clearfix">
+                        <div class="pull-left">
+                            <!-- Left content goes here -->
+                        </div>
+                        <div class="pull-right">
+                            <!-- Right content goes here -->
+                        </div>
+                    </div>
+                    <form id="spendForm" action="/spend" method="POST" onsubmit="return validateForm()">
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-md-2 col-form-label">To</label>
+                            <div class="col-sm-12 col-md-10">
+                                <input class="form-control" type="text" name="from_to" required/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-md-2 col-form-label">Date</label>
+                            <div class="col-sm-12 col-md-10">
+                                <input class="form-control w-100% " value="" type="date" name="date" required/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-md-2 col-form-label">Amount</label>
+                            <div class="col-sm-12 col-md-10">
+                                <input class="form-control w-100% " value="" type="number" name="amount" required/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="type" class="col-sm-12 col-md-2 col-form-label">Type</label>
+                            <div class="col-sm-12 col-md-10">
+                                <select class="form-control" id="type" name="type" required>
+                                    <option value="select">Select</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Bank">Bank</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="description" class="col-sm-12 col-md-2 col-form-label">Description</label>
+                            <div class="col-sm-12 col-md-10">
+                                <textarea class="form-control h-120px" id="description" name="description" rows="1"></textarea>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary btn-sm w-25">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer') %>
+
+    <script>
+        function validateForm() {
+            var type = document.getElementById("type").value;
+            if (type === "select") {
+                alert("Please select a type");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8" />
+    <title>Expense-Tracker Edit Bank-Withdraw</title>
+    <link rel="icon" href="http://localhost:3000/theme/vendors/images/123.png">
+
+    <%- include('header') %>
+    <%- include('sidebar') %>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="title">
+                                <h4  style="font-family: Style Script, cursive; font-weight: normal;">Edit Bank-Withdraw Form</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 text-right">
+                            <a class="btn btn-primary" href="/Bank-Withdraw-view">Back</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="pd-20 card-box mb-30">
+                    <% Bank_Withdraw_list.forEach(function(transaction) { %>
+
+                    <form action="/edit-Bank-Withdraw-submit/<%= transaction.id %>" method="POST">
+                        <input type="hidden" name="edit_id" value="<%= transaction.id %>">
+
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-md-2 col-form-label">Date</label>
+                            <div class="col-sm-12 col-md-10">
+                                <input class="form-control w-100%" type="date" name="date" value="<%= transaction.date ? transaction.date.toISOString().split('T')[0] : '' %>" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-12 col-md-2 col-form-label">Amount</label>
+                            <div class="col-sm-12 col-md-10">
+                                <input class="form-control w-100%" type="number" name="amount" value="<%= transaction.amount %>" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="description" class="col-sm-12 col-md-2 col-form-label">Description</label>
+                            <div class="col-sm-12 col-md-10">
+                                <textarea class="form-control h-120px" id="description" name="description" rows="1"><%= transaction.description %></textarea>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary btn-sm w-25">Edit Bank-Withdraw</button>
+                        </div>
+
+                    </form>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer') %>
+</body>
+
+</html>

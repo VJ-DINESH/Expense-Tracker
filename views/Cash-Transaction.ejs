@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8" />
+    <title>Expense-Tracker Cash Transaction</title>
+    <link rel="icon" href="http://localhost:3000/theme/vendors/images/123.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <%- include('header') %>
+    <%- include('sidebar') %>
+</head>
+
+<body>
+    <div class="mobile-menu-overlay"></div>
+
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="title">
+                                <h4  style="font-family: Style Script, cursive; font-weight: normal;">Cash Transaction</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 text-right">
+                            <a class="btn btn-success" href="/Cash-Transaction-pdf">Download&nbsp;&nbsp;&nbsp;<i class="bi bi-download"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pd-20 card-box mb-30">
+                    <% if (transactions && transactions.length > 0) { %>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="bg-dark text-white">
+                                <tr>
+                                    <th>S.NO</th>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th class="text-right">Credit</th>
+                                    <th class="text-right">Debit</th>
+                                    <th class="text-right">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% var balance = 0; %>
+                                <% var totalCredit = 0; %>
+                                <% var totalDebit = 0; %>
+                                <% transactions.forEach((transaction, index) => { %>
+                                <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td>
+                                        <% 
+                                            var dateObj = new Date(transaction.date);
+                                            var day = dateObj.getDate();
+                                            var month = dateObj.getMonth() + 1; // Adding 1 because January is 0
+                                            var year = dateObj.getFullYear();
+                                            var formattedDate = day + '-' + month + '-' + year;
+                                        %>
+                                        <%= formattedDate %>
+                                    </td>
+                                    <td><%= transaction.description %></td>
+                                    <% if (transaction.credit_debit === "Credit") { %>
+                                    <% totalCredit += transaction.amount; %>
+                                    <% balance += transaction.amount; %>
+                                    <td class="text-right">₹ <%= transaction.amount.toFixed(2) %></td>
+                                    <td class="text-right"></td>
+                                    <% } else { %>
+                                    <% totalDebit += transaction.amount; %>
+                                    <% balance -= transaction.amount; %>
+                                    <td class="text-right"></td>
+                                    <td class="text-right">₹ <%= transaction.amount.toFixed(2) %></td>
+                                    <% } %>
+                                    <td class="text-right">₹ <%= balance.toFixed(2) %></td>
+                                </tr>
+                                <% }); %>
+                                <% var totalBalance = totalCredit - totalDebit; %>
+                                <tr>
+                                    <td colspan="3" class="text-right"><strong>Total</strong></td>
+                                    <td class="text-right"><strong>₹ <%= totalCredit.toFixed(2) %></strong></td>
+                                    <td class="text-right"><strong>₹ <%= totalDebit.toFixed(2) %></strong></td>
+                                    <td class="text-right"><strong>₹ <%= totalBalance.toFixed(2) %></strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } else { %>
+                    <p>No Cash-transactions found.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('footer') %>
+</body>
+
+</html>

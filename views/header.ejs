@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <title>Expense-Tracker Home Page</title>
+
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost:3000/vendors/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:3000/vendors/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:3000/vendors/images/favicon-16x16.png">
+
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+   
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  
+    <link rel="stylesheet" type="text/css" href="http://localhost:3000/theme/vendors/styles/core.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost:3000/theme/vendors/styles/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost:3000/theme/src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost:3000/theme/src/plugins/datatables/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost:3000/theme/vendors/styles/style.css">
+</head>
+<body class="header-white sidebar-dark">
+    <nav>
+        <div class="header">
+            <div class="header-left">
+                <div class="menu-icon bi bi-list"></div>
+                <div class="search-toggle-icon bi bi-search" data-toggle="header_search"></div>
+                <div class="header-search">
+                    <form onsubmit="searchRedirect(); return false;"> 
+                        <div class="form-group mb-0">
+                            <i class="dw dw-search2 search-icon"></i>
+                            <input type="text" class="form-control search-input" id="searchInput" placeholder="Search Here">
+                            <div class="dropdown">
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="user-info-dropdown">
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                 <!--         <span class="user-icon">
+                            <img src="http://localhost:3000/uploads/<%= fileName %>" alt=""  style="width: 200%;height: 160%; border-radius: 50%;">
+
+                        </span>  -->
+                        <span class="user-name" ><%= username %></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"  style="padding-top: 20px;">
+                        <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>
+                        <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <script>
+        function searchRedirect() {
+            const searchTerm = document.getElementById("searchInput").value.trim().toLowerCase();
+            switch (searchTerm) {
+                case "income":
+                case "income-view":
+                case "edit-income":
+                case "spend":
+                case "spend-view":
+                case "edit-spend":
+                case "bank-deposit-view":
+                case "bank-deposit":
+                case "edit-bank-deposit":
+                case "bank-withdraw-view":
+                case "bank-withdraw":
+                case "edit-bank-withdraw":
+                case "cash-transaction":
+                case "bank-transaction":
+                case "profile":
+                    window.location.href = "/" + searchTerm;
+                    break;
+                default:
+                    // Handle other types of searches or display an error message
+                    console.error("Search term not recognized:", searchTerm);
+                    // Example: Display an alert message
+                    alert("Search term not recognized: " + searchTerm);
+                    break;
+            }
+        }
+    </script>

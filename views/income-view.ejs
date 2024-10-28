@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8" />
+    <title>Expense-Tracker Income-View </title>
+    <link rel="icon" href="http://localhost:3000/theme/vendors/images/123.png">
+    <%- include('header') %>
+    <%- include('sidebar') %>
+</head>
+
+<body>
+
+    <div class="main-container">
+        <div class="pd-ltr-20 xs-pd-20-10">
+            <div class="min-height-200px">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="title">
+                                <h4 style="font-family: Style Script, cursive; font-weight: normal;">Income Details</h4>
+                            </div>
+                        </div>
+                     
+                        <div class="col-md-6 col-sm-12 text-right">
+                            <a class="btn btn-primary" href="/income">New Income</a>
+                            <a class="btn btn-success" href="/Income-pdf">Download&nbsp;&nbsp;&nbsp;<i class="bi bi-download"></i></a>
+                          
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pd-20 card-box mb-30">
+                    <% if (data && data.length > 0) { %>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="bg-dark text-white">
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Date</th>
+                                    <th>Amount From</th>
+                                    <th>Description</th>
+                                    <th class="text-right">Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% data.forEach((item, index) => { %>
+                                <tr>
+                                    <td>
+                                        <%= index + 1 %>
+                                    </td>
+                                    <td>
+                                        <% 
+                                        var dateObj = new Date(item.date);
+                                        var day = dateObj.getDate();
+                                        var month = dateObj.getMonth() + 1; // Adding 1 because January is 0
+                                        var year = dateObj.getFullYear();
+                                        var formattedDate = day + '-' + month + '-' + year;
+                                    %>
+                                        <%= formattedDate %>
+                                    </td>
+                                    <td>
+                                        <%= item.from_to %>
+                                    </td>
+                                    <td>
+                                        <%= item.description %>
+                                    </td>
+                                    <td class="text-right">₹
+                                        <%= item.amount.toFixed(2) %>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Action Buttons">
+                                            <a href="./edit-income/<%= item.id %>" class="btn btn-warning">Edit</a>
+                                            <a href="./delete-income/<%= item.id %>" class="btn btn-danger">Delete</a>
+                                           
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } else { %>
+                    <p>No income records found.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('footer') %>
+       
+</body>
+
+</html>

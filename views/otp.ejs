@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Basic Page Info -->
+		<meta charset="utf-8" />
+		<title>Expense-Tracker OTP</title>
+		<link rel="icon" href="http://localhost:3000/theme/vendors/images/123.png">
+
+		<!-- Site favicon -->
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180" 
+			href="vendors/images/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="vendors/images/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="vendors/images/favicon-16x16.png"
+		/>
+
+		<!-- Mobile Specific Metas -->
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1"
+		/>
+
+		<!-- Google Font -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="theme/vendors/styles/core.css" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="theme/vendors/styles/icon-font.min.css"
+		/>
+		<link rel="stylesheet" type="text/css" href="theme/vendors/styles/style.css" />
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"
+		></script>
+		<script
+			async
+			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2973766580778258"
+			crossorigin="anonymous"
+		></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+
+			gtag("config", "G-GBZ3SGGX85");
+		</script>
+		<!-- Google Tag Manager -->
+		<script>
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+				var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s),
+					dl = l != "dataLayer" ? "&l=" + l : "";
+				j.async = true;
+				j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, "script", "dataLayer", "GTM-NXZMQSS");
+		</script>
+		<!-- End Google Tag Manager -->
+	
+
+    <style>
+        /* Custom styles for adjusting image height on smaller screens */
+        @media (max-width: 768px) {
+            .otp-image {
+                height: auto;
+                width: 100%;
+            }
+        }
+        
+        /* Custom styles for dark background */
+        .dark-bg {
+            background-color: #343a40; /* Dark grey color */
+            color: #fff; /* White text */
+            padding: 20px; /* Add padding for better readability */
+            border-radius: 10px; /* Optional: Add border radius for rounded corners */
+        } 
+
+
+    </style>
+</head>
+<body>
+    <body>
+        <div class="login-header box-shadow">
+           <div
+               class="container-fluid d-flex justify-content-between align-items-center"
+           >
+               <div class="brand-logo">
+                   <a href="login">
+                       <img src="theme/vendors/images/l11-removebg-preview.png" alt="" />
+                   </a>
+               </div>
+               <div class="login-menu">
+                   
+               </div>
+           </div>
+        </div> 
+    <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <img src="https://img.freepik.com/premium-vector/one-time-password-otp-security-verification-illustration_258153-461.jpg" class="otp-image img-fluid" alt="Image">
+                </div>
+                <!-- Right side with dark background content -->
+                <div class="col-md-6">
+                    <div class="login-box bg-white box-shadow border-radius-10">
+                        <div class="login-title">
+                            <h2 class="text-center text-primary">OTP</h2>
+                        </div>
+                        <h6 class="mb-20">
+                            Enter OTP:
+                        </h6>
+                        <div class="login-body">
+                            <% if (messages.error) { %>
+								<div style="color: red;">
+									<%= messages.error %>
+								</div>
+							<% } %>
+						
+							<% if (messages.success) { %>
+								<div style="color: green;">
+									<%= messages.success %>
+								</div>
+							<% } %>
+                            
+                            <form action="/otp" method="post">
+								<div class="input-group custom">
+									<input type="password" name="otp" class="form-control form-control-lg" placeholder="****" id="otp"/>
+									<div class="input-group-append custom">
+										<span class="input-group-text" onclick="togglePasswordVisibility('otp')"><i class="fa fa-eye" aria-hidden="true"></i></span>
+										<span class="input-group-text"><i class="fa fa-lock" aria-hidden="true"></i></span>
+									</div>
+								</div>
+								
+                                <button type="submit" class="btn btn-primary btn-block">Verify OTP</button>
+                            </form>
+							<hr>
+							
+                              <!-- Resend OTP button -->
+                            <form action="/resend-otp" method="post">
+                                <button type="submit" class="btn btn-outline-primary btn-lg btn-block">Resend OTP</button>
+                            </form>
+
+							
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    <!-- Bootstrap JS CDN (Optional, for Bootstrap functionality) -->
+	<script>
+    function togglePasswordVisibility(inputId) {
+        var x = document.getElementById(inputId);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	
+</body>
+</html>
